@@ -24,7 +24,9 @@ var uploads = multer({storage: storage});
 router.get('/users', (req, res) => {
   var user_id = req.user._id;
   // var user_id = req.body.user_id;
-  User.find({}, (err, users) => {
+  User.find({
+    isVerified: true
+  }, (err, users) => {
     var leftusers = users.filter(user => {
       return String(user_id) != String(user._id);
     });
