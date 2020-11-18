@@ -17,7 +17,7 @@
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="/assets/demo/demo.css" rel="stylesheet" />
   <link href="/assets/demo/vertical-nav.css" rel="stylesheet" />
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <style>
     .nav-brand .nav-item {
       align-self: center;
@@ -364,10 +364,10 @@
           </script>
           <%memberscore.forEach(member=>{%>
           <script>
-            if (! <%= member.completed %> + <%= member.pending %> + <%= member.late %> == 0) {
-              score = (4 * <%= member.completed %> -1 * <%= member.late %> ) / ( <%= member.completed %> + <%= member.pending %> + <%= member.late %> )
-              completed += <%= member.completed %>
-                late += <%= member.late %>
+            if (! < %= member.completed % > + < %= member.pending % > + < %= member.late % > == 0) {
+              score = (4 * < %= member.completed % > -1 * < %= member.late % > ) / ( < %= member.completed % > + < %= member.pending % > + < %= member.late % > )
+              completed += < %= member.completed % >
+                late += < %= member.late % >
                 a.push(score)
               names.push('<%=member.name%>')
             }
@@ -469,9 +469,9 @@
 
       var data = google.visualization.arrayToDataTable([
         ['Task', 'Count'],
-        ['Completed Tasks', <%= member.completed %> ],
-        ['Pending Tasks', <%= member.pending %> ],
-        ['Completed Late', <%= member.late %> ]
+        ['Completed Tasks', < %= member.completed % > ],
+        ['Pending Tasks', < %= member.pending % > ],
+        ['Completed Late', < %= member.late % > ]
       ]);
 
       // Optional; add a title and set the width and height of the chart
@@ -756,7 +756,7 @@
 <script>
   a.push({
     userid: String('<%=teammate.user_id%>'),
-    status: <%= teammate.status %>
+    status: < %= teammate.status % >
   });
 </script>
 <%})%>
