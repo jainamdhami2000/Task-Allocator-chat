@@ -361,10 +361,10 @@
           </script>
           <%memberscore.forEach(member=>{%>
           <script>
-            if (! < %= member.completed % > + < %= member.pending % > + < %= member.late % > == 0) {
-              score = (4 * < %= member.completed % > -1 * < %= member.late % > ) / ( < %= member.completed % > + < %= member.pending % > + < %= member.late % > )
-              completed += < %= member.completed % >
-                late += < %= member.late % >
+            if (! <%= member.completed %> + <%= member.pending %> + <%= member.late %> == 0) {
+              score = (4 * <%= member.completed %> -1 * <%= member.late %> ) / ( <%= member.completed %> + <%= member.pending %> + <%= member.late %> )
+              completed += <%= member.completed %>
+                late += <%= member.late %>
                 a.push(score)
               names.push('<%=member.name%>')
             }
@@ -466,9 +466,9 @@
 
       var data = google.visualization.arrayToDataTable([
         ['Task', 'Count'],
-        ['Completed Tasks', < %= member.completed % > ],
-        ['Pending Tasks', < %= member.pending % > ],
-        ['Completed Late', < %= member.late % > ]
+        ['Completed Tasks', <%= member.completed %> ],
+        ['Pending Tasks', <%= member.pending %> ],
+        ['Completed Late', <%= member.late %> ]
       ]);
 
       // Optional; add a title and set the width and height of the chart
@@ -753,7 +753,7 @@
 <script>
   a.push({
     userid: String('<%=teammate.user_id%>'),
-    status: < %= teammate.status % >
+    status: <%= teammate.status %>
   });
 </script>
 <%})%>
