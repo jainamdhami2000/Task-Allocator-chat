@@ -1,0 +1,55 @@
+<%- include('partials/header'); %>
+
+<head>
+  <style>
+    .navbar {
+      margin-bottom: 0px;
+      margin-right: 0px;
+      width: 100%;
+      padding: 0px;
+    }
+
+    .nav-brand .nav-item {
+      align-self: center;
+      padding-bottom: 0px;
+    }
+  </style>
+</head>
+<%- include('partials/sidebar')%>
+<div>
+  <% invites.forEach((invitee)=>{%>
+  <div class="card">
+    <div class=" card-body">
+      <div class="row">
+        <div class="col-4 tim-tyo">
+          <h3> <%= invitee.project_name %></h3>
+        </div>
+        <div class="col-4 tim-typo">
+        </div>
+        <div class="col-4" style="padding-top: 10px;">
+          <form action="/project/checkinvite" method="POST" id="checkinv<%=invitee._id%>">
+            <input name='projectId' style='display:none' value='<%=invitee._id%>'>
+            <input name='opt' id="opt<%=invitee._id%>" style='display:none'>
+            <button class="btn btn-success" id="<%=invitee._id%>" onclick="checkinv(this)" value="accept">accept</button>
+            <button class="btn btn-danger " id="<%=invitee._id%>" onclick="checkinv(this)" value="reject">reject</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% }); %>
+</div>
+</div>
+</div>
+</div>
+<script>
+  function checkinv(input) {
+    if (input.value === "accept") {
+      document.getElementById("opt" + input.id).value = "accept";
+    } else {
+      document.getElementById("opt" + input.id).value = "reject";
+    }
+    document.getElementById("checkinv" + input.id).submit();
+  }
+</script>
+<%- include('partials/footer'); %>

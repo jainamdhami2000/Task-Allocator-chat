@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" type="image/png" href="/assets/img/icon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+    ProjectHub
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  <!-- CSS Files -->
+  <link href="/assets/css/material-kit.css?v=2.2.0" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="/assets/demo/demo.css" rel="stylesheet" />
+  <link href="/assets/demo/vertical-nav.css" rel="stylesheet" />
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+  <style>
+    .navbar {
+      margin-top: 0px !important;
+      padding-top: 0px;
+      margin-bottom: 0px !important;
+      padding-bottom: 0px;
+      right: 0;
+      margin-right: 0px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-expand-lg bg-dark fixed-top" style="right: 0; margin-right: 0px; margin-bottom:10px;" role="navigation-demo">
+    <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-translate">
+        <a class="navbar-brand" href="https://project-hub-2020.herokuapp.com/dashboard">ProjectHub</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a href="/chat" target="_blank" class="nav-link">
+              CHAT
+            </a>
+          </li>
+          <li class="nav-item">
+            <form id="projectuploads<%=project._id%>" method='POST' action="/project/viewuploads">
+              <input name='projectId' style='display:none' value='<%=project._id%>'>
+              <a href="#" class="nav-link" id='<%=project._id%>' onclick='upload(this)'>UPLOADS</a>
+            </form>
+          </li>
+          <li class="nav-item">
+            <a href="/logout" class="nav-link">
+              LOGOUT
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/profile_page" class="nav-link">
+              PROFILE
+            </a>
+          </li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-->
+  </nav>
+  <%-include('partials/sidebar')%>
+  <div style="margin-bottom: 90px;">
+    <h2>Documents</h2>
+  </div>
+  <% project.uploads.forEach(uploads=>{%>
+  <% uploads.images.forEach(upload=>{%>
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-5" style="margin-top: 10px;">
+          <%=upload.filename%>
+        </div>
+        <div class="col-2" style="margin-top: 10px;">
+          <%=uploads.uploaded_by%>
+        </div>
+        <div class="col-3" style="margin-top: 10px;">
+        </div>
+        <div class="col-1">
+          <a href="../<%=upload.filename%>" download><button class="btn"><i class="fa fa-download"></i></button></a>
+        </div>
+        <div class="col-1">
+          <a href="../<%=upload.filename%>" target="_blank"><button class="btn"><i class="fa fa-eye"></i></button></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%})%>
+  <%});%>
+  </div>
+  </div>
+  </div>
+  <script>
+    function openfile(input) {
+      document.getElementById("projtask" + input.id).submit();
+    }
+  </script>
+  <%-include('partials/footer')%>

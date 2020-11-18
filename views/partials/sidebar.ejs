@@ -1,0 +1,137 @@
+<head>
+  <style>
+    .abc {
+      padding-top: 100px;
+      width: 100%;
+      min-height: 730px;
+      height: 100%;
+      background-image: url('/assets/img/backgroundimg.jpg');
+      background-size: 100%;
+      position: relative;
+    }
+
+    .abc:before {
+
+      content: "";
+      position: absolute;
+      top: 0%;
+      bottom: 0%;
+      left: 0%;
+      right: 0%;
+      opacity: 0.1;
+      z-index: -1;
+      background: whitesmoke;
+      background: linear-gradient(90deg, rgb(255, 255, 255), 13%, 100%);
+    }
+  </style>
+</head>
+<div class="row">
+  <div class="col-md-3">
+    <div class="wrapper d-flex">
+      <div class="sidebar" style="padding-top: 75px;">
+        <div id="sidebarButtons">
+          <a href="https://project-hub-2020.herokuapp.com/project/viewinvite" class="btn btn-round" style="background-color:floralwhite; color: black; width: 75%; margin-left: 30px; ">
+            <i class="material-icons" style="color: black;">favorite</i> view invites
+          </a>
+          <button class="btn btn-round" data-toggle="modal" data-target="#createTeamModal" style="background-color: floralwhite; color: black; width: 75%; margin-left: 30px; ">
+            <i class="material-icons" style="color: black;">account_circle</i>
+            + NEW TEAM
+          </button>
+        </div>
+        <div class="tim-typo" style="margin-left:20px;padding-left: 0px; color: floralwhite;">
+          <h3>MY TEAMS</h3>
+        </div>
+        <h4 class="px-3" style="padding-bottom: 4px; margin-left: 20px; color: #fff;">LEADER</h4>
+        <ul style="margin: 0px;">
+          <% managing.forEach(leader=>{%>
+          <%if( (typeof(project)!='undefined') && String(leader.project_name)===String(project.project_name)){%>
+          <li id='<%=leader._id%>' style="padding: 2px; background-color: #000; margin: 0px;"><a aria-disabled href="https://project-hub-2020.herokuapp.com/project/showproject/<%=leader._id%>" style="color: darkgrey; height: 100%;"><%= leader.project_name  %></a>
+          </li>
+          <%}else{%>
+          <li id='<%=leader._id%>' style="padding: 2px; margin: 0px;"><a href="https://project-hub-2020.herokuapp.com/project/showproject/<%=leader._id%>" style="color: darkgrey; height: 100%;"><%= leader.project_name  %></a></li>
+          <%}%>
+          <%})%>
+        </ul>
+        <h4 class="px-3" style="padding-bottom: 4px; margin-left: 20px; color: #fff;">MEMBER</h4>
+        <ul>
+          <% asmember.forEach(member=>{%>
+          <%if( (typeof(project)!='undefined') && String(member.project_name)===String(project.project_name)){%>
+          <li id='<%=member._id%>' style="padding: 0px; margin: 0px; background-color: #000;"><a href="https://project-hub-2020.herokuapp.com/project/showproject/<%=member._id%>" style="color: darkgray; height: 100%;"><%= member.project_name  %></a></li>
+          <%}else{%>
+          <li id='<%=member._id%>' style="padding: 0px; margin: 0px;"><a href="https://project-hub-2020.herokuapp.com/project/showproject/<%=member._id%>" style="color: darkgray; height: 100%;"><%= member.project_name  %></a></li>
+          <%}%>
+          <%})%>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-9 abc">
+    <div class="container">
+      <!-- //////////////////////////////////create team modal//////////////////////////////////////////////////////////// -->
+      <div class="modal fade" id="createTeamModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-login" role="document">
+          <div class="modal-content" style="z-index: 35;">
+            <div class="card card-signup card-plain">
+              <div class="modal-header">
+                <div class="card-header card-header-info text-center">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+                  <h3>CREATE A TEAM</h3>
+                </div>
+              </div>
+              <div class="modal-body">
+                <form class="form" method="POST" action="https://project-hub-2020.herokuapp.com/project/create">
+                  <div class="card-body">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="material-icons">face</i>
+                          </span>
+                        </div>
+                        <input required type="text" class="form-control" placeholder="Team Name" name="project_name">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="material-icons">mail</i>
+                          </span>
+                        </div>
+                        <!-- <input type="text" class="form-control" placeholder="Email..."> -->
+                        <select required class="form-control teammates" name="teammates" id="teammates" data-live-search='true' data-style="select-with-transition" multiple title="Select Teammates">
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer justify-content-center">
+                    <input type='submit' class="btn btn-info btn-link btn-wd btn-lg" value='CREATE!' />
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script type="text/javascript">
+        function details(input) {
+          document.getElementById("project" + input.id).submit();
+        }
+        $.ajax({
+          url: "https://project-hub-2020.herokuapp.com/project/users",
+          method: "GET"
+        }).done(function(data) {
+          $('.teammates').selectpicker();
+          data.users.forEach((item) => {
+            $('#teammates').append('<option value="' + item._id + '">' + item.FirstName + " " + item.LastName + '(' + item.username + ')' + '</option>');
+          });
+          $('.teammate').selectpicker();
+          data.users.forEach((item) => {
+            $('#teammate').append('<option value="' + item._id + '">' + item.FirstName + " " + item.LastName + '(' + item.username + ')' + '</option>');
+          })
+          $('.addteammate').selectpicker();
+          data.users.forEach((item) => {
+            $('#addteammate').append('<option value="' + item._id + '">' + item.FirstName + " " + item.LastName + '(' + item.username + ')' + '</option>');
+          });
+        });
+      </script>
