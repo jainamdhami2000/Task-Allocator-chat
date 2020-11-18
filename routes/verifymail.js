@@ -33,7 +33,7 @@ router.post('/verifyMail', function(req, res) {
         var token = jwt.encode(payload, secret);
         // let content = 'http://'+ip+':'+port+'/user/resetpassword/'+payload.id+'/'+token
         //For locally uncomment this
-        let content = 'http://localhost:3000/verify/verifyMail/' + payload.id + '/' + token;
+        let content = 'http://project-hub-2020.herokuapp.com/verify/verifyMail/' + payload.id + '/' + token;
         mail(emailAddress,'Verify Mail', content);
         res.render('mailSend',{
           user:req.user
