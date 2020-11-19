@@ -50,7 +50,8 @@ module.exports = function(app, passport) {
         user: req.user,
         managing: managing,
         asmember: asmember,
-        pending: pending
+        pending: pending,
+        userid:req.user._id
       });
     });
   });

@@ -286,7 +286,8 @@ router.get('/showproject/:projectId', isLoggedIn, (req, res) => {
             managing: managing,
             asmember: asmember,
             tasks: tasks,
-            user: req.user
+            user: req.user,
+            userid:req.user._id
           });
         });
       });
@@ -346,7 +347,8 @@ router.get('/viewinvite', isLoggedIn, (req, res) => {
         invites: invitations,
         user: req.user,
         asmember: asmember,
-        managing: managing
+        managing: managing,
+        userid:req.user._id
       });
     });
   });
@@ -455,7 +457,8 @@ router.post('/viewuploads', isLoggedIn, (req, res) => {
       project: project,
       user: req.user,
       asmember: asmember,
-      managing: managing
+      managing: managing,
+      userid:req.user._id
     })
   });
 });
