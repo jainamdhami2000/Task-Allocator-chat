@@ -64,14 +64,12 @@
         <h4 class="px-3" style="padding-bottom: 4px; margin-left: 20px; color: #fff;">MEMBER</h4>
         <ul>
           <% asmember.forEach(member=>{%>
-          <form id="project<%=member._id%>" method='POST' action="https://project-hub-2020.herokuapp.com/project/showproject">
             <input name='projectId' style='display:none' value='<%=member._id%>'>
             <%if( (typeof(project)!='undefined') && String(member.project_name)===String(project.project_name)){%>
             <li id='<%=member._id%>' style="padding: 0px; margin: 0px; background-color: #000;"><a href="https://project-hub-2020.herokuapp.com/project/showproject/<%=member._id%>" style="color: darkgray; height: 100%;"><%= member.project_name  %></a></li>
             <%}else{%>
             <li id='<%=member._id%>' style="padding: 0px; margin: 0px;"><a href="https://project-hub-2020.herokuapp.com/project/showproject/<%=member._id%>" style="color: darkgray; height: 100%;"><%= member.project_name  %></a></li>
             <%}%>
-          </form>
           <%})%>
         </ul>
       </div>
